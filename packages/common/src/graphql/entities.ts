@@ -19,7 +19,7 @@ import {
   isUnionType,
 } from 'graphql';
 import {DirectiveName} from './constant';
-import {buildSchema} from './schema';
+import {buildSchemaFromFile} from './schema';
 import {
   FieldScalar,
   GraphQLEntityField,
@@ -33,7 +33,7 @@ import {
 import {isFieldScalar} from './utils';
 
 export function getAllJsonObjects(_schema: GraphQLSchema | string) {
-  const schema = typeof _schema === 'string' ? buildSchema(_schema) : _schema;
+  const schema = typeof _schema === 'string' ? buildSchemaFromFile(_schema) : _schema;
   return Object.values(schema.getTypeMap())
     .filter((node) => node.astNode?.directives?.find(({name: {value}}) => value === DirectiveName.JsonField))
     .map((node) => node)
@@ -41,7 +41,7 @@ export function getAllJsonObjects(_schema: GraphQLSchema | string) {
 }
 
 export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQLModelsRelations {
-  const schema = typeof _schema === 'string' ? buildSchema(_schema) : _schema;
+  const schema = typeof _schema === 'string' ? buildSchemaFromFile(_schema) : _schema;
   const entities = Object.values(schema.getTypeMap())
     .filter((node) => node.astNode?.directives?.find(({name: {value}}) => value === DirectiveName.Entity))
     .map((node) => node)

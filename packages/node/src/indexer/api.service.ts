@@ -53,7 +53,7 @@ export class ApiService implements OnApplicationShutdown {
     this.apiOption = {
       provider,
       throwOnConnect,
-      ...chainTypes,
+      ...(await chainTypes),
     };
     this.api = await ApiPromise.create(this.apiOption);
     this.networkMeta = {

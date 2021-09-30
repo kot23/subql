@@ -19,6 +19,7 @@ import { StoreService } from './store.service';
 export interface SandboxOption {
   store?: Store;
   api?: ApiPromise;
+  script: string;
   root: string;
   entry: string;
 }
@@ -62,10 +63,7 @@ export class IndexerSandbox extends Sandbox {
     super(
       option,
       new VMScript(
-        `
-      const mappingFunctions = require('${option.entry}');
-      module.exports = mappingFunctions[funcName](...args);
-    `,
+        `${option.script};module.exports = exports[funcName](...args);`,
         path.join(option.root, 'sandbox'),
       ),
     );
@@ -119,8 +117,9 @@ export class SandboxService {
         {
           api: await this.apiService.getPatchedApi(),
           entry,
-          root: this.project.path,
+          root: this.project.root,
           store: this.storeService.getStore(),
+          script: await this.project.loadDataSourceEntry(entry)
         },
         this.nodeConfig,
       );
@@ -133,7 +132,7 @@ export class SandboxService {
     if (isRuntimeDataSourceV0_2_0(ds)) {
       return ds.mapping.file;
     } else {
-      return getProjectEntry(this.project.path);
+      return getProjectEntry(this.project.root);
     }
   }
 }
