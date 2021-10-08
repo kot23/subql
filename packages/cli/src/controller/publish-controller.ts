@@ -4,10 +4,11 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  loadProjectManifest,
   manifestIsV0_2_0,
+  parseProjectManifest,
   ProjectManifestV0_0_1Impl,
   ProjectManifestV0_2_0Impl,
+  ReaderFactory,
 } from '@subql/common';
 import IPFS from 'ipfs-http-client';
 import yaml from 'js-yaml';
@@ -26,8 +27,8 @@ type FileObject = {
 export async function uploadToIpfs(ipfsEndpoint: string, projectDir: string): Promise<string> {
   const ipfs = IPFS.create({url: ipfsEndpoint});
 
-  const projectManifestPath = path.resolve(projectDir, 'project.yaml');
-  const manifest = loadProjectManifest(projectManifestPath).asImpl;
+  const reader = await ReaderFactory.create(projectDir);
+  const manifest = parseProjectManifest(await reader.getProjectSchema()).asImpl;
 
   if (manifestIsV0_2_0(manifest)) {
     const entryPaths = manifest.dataSources.map((ds) => ds.mapping.file);
