@@ -9,6 +9,7 @@
 ### Added
 - Add MMR service allow to acquire Proof of index information and generate Merkle mountain range root, create and store root value in a file-based database, simultaneously it updates in the corresponding MMR value in the `_poi` table.
 This feature will be running along with the Proof of index service, also allow the user to specify a local path for .mmr by using flag `--mmr-path`.
+- Support Float type in Sequelize type mapping
 
 ## [0.22.0] - 2021-10-12
 Upgrade priority: High. To align with runtime upgrade of Kusama and Polakdot, upgraded api will support Metadata V14 and .
