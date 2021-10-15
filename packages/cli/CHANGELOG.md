@@ -6,6 +6,8 @@
   and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Support Float type in Cli
 
 ## [0.13.0] - 2021-10-12
 ### Added

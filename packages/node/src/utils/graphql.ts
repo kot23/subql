@@ -23,6 +23,7 @@ const SEQUELIZE_TYPE_MAPPING = {
   BigDecimal: 'numeric',
   Boolean: 'boolean',
   Bytes: DataTypes.BLOB,
+  Float: DataTypes.FLOAT,
   Json: DataTypes.JSONB,
 };
 
