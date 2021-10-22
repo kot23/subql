@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import assert from 'assert';
+import {GeneralTypes} from '@subql/common';
 import {
   assertListType,
   getDirectiveValues,
@@ -66,7 +67,9 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       const derivedFromDirectValues = getDirectiveValues(derivedFrom, field.astNode);
       const indexDirectiveVal = getDirectiveValues(indexDirective, field.astNode);
       //If is a basic scalar type
-      if (isFieldScalar(typeString)) {
+      const dataType = new GeneralTypes(typeString);
+
+      if (dataType.transformFieldScalar() !== undefined) {
         newModel.fields.push(packEntityField(typeString, field, false));
       }
       // If is a foreign key

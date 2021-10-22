@@ -4,12 +4,18 @@
 import fs from 'fs';
 import path from 'path';
 import {promisify} from 'util';
-import {getAllEntitiesRelations, loadProjectManifest, getAllJsonObjects, setJsonObjectType} from '@subql/common';
+import {
+  getAllEntitiesRelations,
+  loadProjectManifest,
+  getAllJsonObjects,
+  setJsonObjectType,
+  generalTypes,
+} from '@subql/common';
 import {GraphQLEntityField, GraphQLJsonFieldType, GraphQLEntityIndex} from '@subql/common/graphql/types';
+import {GenericTypes} from '@subql/common/types/supported/typeInterfaces';
 import ejs from 'ejs';
 import {upperFirst} from 'lodash';
 import rimraf from 'rimraf';
-import {transformTypes} from './types-mapping';
 
 const MODEL_TEMPLATE_PATH = path.resolve(__dirname, '../template/model.ts.ejs');
 const MODELS_INDEX_TEMPLATE_PATH = path.resolve(__dirname, '../template/models-index.ts.ejs');
@@ -103,7 +109,9 @@ export function processFields(
 
     switch (field.type) {
       default: {
-        injectField.type = transformTypes(className, field.type.toString());
+        const dataType = new generalTypes(field.type);
+        injectField.type = dataType.transformTsTypes();
+        // injectField.type = transformTypes(className, field.type.toString());
         if (!injectField.type) {
           throw new Error(
             `Schema: undefined type "${field.type.toString()}" on field "${field.name}" in "type ${className} @${type}"`
