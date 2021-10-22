@@ -21,9 +21,10 @@ describe('general types', () => {
     expect(() => new GeneralTypes('BigDecimal')).toThrow(/is not supported type/);
   });
 
-  it('identify if it is not a field scalar type', () => {
+  it('identify if it is not a related type', () => {
     const jsonType = new GeneralTypes('Json');
-    console.log(jsonType.transformFieldScalar());
-    // expect(jsonType.transformFieldScalar()===undefined).toBeTruthy();
+    expect(jsonType.hasFieldScalar()).toBeFalsy();
+    expect(jsonType.hasTsTypes()).toBeFalsy();
+    expect(jsonType.hasGraphqlType()).toBeTruthy();
   });
 });

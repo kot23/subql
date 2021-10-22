@@ -55,23 +55,35 @@ export class GeneralTypes {
     }
   }
 
+  hasTsTypes(): boolean {
+    return this.typeAttribute.toTsType !== undefined;
+  }
+
+  hasFieldScalar(): boolean {
+    return this.typeAttribute.toFieldScalar !== undefined;
+  }
+
+  hasGraphqlType(): boolean {
+    return this.typeAttribute.toGraphqlType !== undefined;
+  }
+
   transformTsTypes() {
-    if (this.typeAttribute.toTsType === undefined) {
-      throw new Error(`Type ${this.typeAttribute} associated typescript type is not supported`);
+    if (!this.hasFieldScalar) {
+      throw new Error(`Type ${this.type} associated typescript type is not supported`);
     }
     return this.typeAttribute.toTsType;
   }
 
   transformFieldScalar() {
-    if (this.typeAttribute.toFieldScalar === undefined) {
-      throw new Error(`Type ${this.typeAttribute} associated entity type is not supported`);
+    if (!this.hasFieldScalar) {
+      throw new Error(`Type ${this.type} associated entity type is not supported`);
     }
     return this.typeAttribute.toFieldScalar;
   }
 
   transformGraphqlType() {
-    if (this.typeAttribute.toGraphqlType === undefined) {
-      throw new Error(`Type ${this.typeAttribute} associated graphql type is not supported`);
+    if (!this.hasGraphqlType) {
+      throw new Error(`Type ${this.type} associated graphql type is not supported`);
     }
     return this.typeAttribute.toGraphqlType;
   }

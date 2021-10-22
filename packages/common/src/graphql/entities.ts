@@ -68,8 +68,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       const indexDirectiveVal = getDirectiveValues(indexDirective, field.astNode);
       //If is a basic scalar type
       const dataType = new GeneralTypes(typeString);
-
-      if (dataType.transformFieldScalar() !== undefined) {
+      if (dataType.hasFieldScalar()) {
         newModel.fields.push(packEntityField(typeString, field, false));
       }
       // If is a foreign key
