@@ -31,7 +31,6 @@ import {
   GraphQLRelationsType,
   IndexType,
 } from './types';
-import {isFieldScalar} from './utils';
 
 export function getAllJsonObjects(_schema: GraphQLSchema | string) {
   const schema = typeof _schema === 'string' ? buildSchema(_schema) : _schema;
@@ -67,8 +66,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       const derivedFromDirectValues = getDirectiveValues(derivedFrom, field.astNode);
       const indexDirectiveVal = getDirectiveValues(indexDirective, field.astNode);
       //If is a basic scalar type
-      const dataType = new GeneralTypes(typeString);
-      if (dataType.hasFieldScalar()) {
+      if (new GeneralTypes(typeString).hasFieldScalar()) {
         newModel.fields.push(packEntityField(typeString, field, false));
       }
       // If is a foreign key
@@ -113,7 +111,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       }
       // handle indexes
       if (indexDirectiveVal) {
-        if (typeString !== 'ID' && isFieldScalar(typeString)) {
+        if (typeString !== 'ID' && new GeneralTypes(typeString).hasFieldScalar()) {
           newModel.indexes.push({
             unique: indexDirectiveVal.unique,
             fields: [field.name],

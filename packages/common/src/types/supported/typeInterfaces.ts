@@ -7,7 +7,7 @@ type TypeScalar = 'string' | 'number' | 'bigint' | 'Date' | 'boolean';
 // used in Common/graphql/types Entity types
 type FieldScalar = 'ID' | 'Int' | 'BigInt' | 'String' | 'Date' | 'Boolean' | 'Bytes' | 'Float';
 // Sequelize type
-type GraphqlTypes =
+type SequelizeTypes =
   | 'text'
   | 'integer'
   | 'numeric'
@@ -22,5 +22,6 @@ export type GenericTypes = 'BigInt' | 'Boolean' | 'Bytes' | 'Date' | 'Float' | '
 export interface TypeInterfaces {
   toTsType: TypeScalar | undefined;
   toFieldScalar: FieldScalar | undefined;
-  toGraphqlType: GraphqlTypes | undefined;
+  toSequelizeType: SequelizeTypes | undefined;
+  toStoreOperation(data: any): Uint8Array | undefined;
 }

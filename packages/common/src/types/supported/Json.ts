@@ -7,5 +7,8 @@ import {TypeInterfaces} from './typeInterfaces';
 export const Json = {
   toFieldScalar: undefined,
   toTsType: undefined,
-  toGraphqlType: DataTypes.JSONB,
+  toSequelizeType: DataTypes.JSONB,
+  toStoreOperation(data: any): Uint8Array | undefined {
+    return Buffer.from(JSON.stringify(data));
+  },
 } as TypeInterfaces;

@@ -9,9 +9,10 @@ export class GeneralTypes {
   readonly typeAttribute;
 
   constructor(type: any) {
-    this.type = type as GenericTypes;
     // const key = Object.keys(supportedTypes).findIndex((k)=>k === this.type)
     // this.typeAttribute = supportedTypes.ID;
+    // TODO, fix this implementation
+    this.type = type as GenericTypes;
     switch (this.type) {
       default: {
         throw new Error(`${this.type} is not supported type`);
@@ -63,8 +64,8 @@ export class GeneralTypes {
     return this.typeAttribute.toFieldScalar !== undefined;
   }
 
-  hasGraphqlType(): boolean {
-    return this.typeAttribute.toGraphqlType !== undefined;
+  hasSequelizeType(): boolean {
+    return this.typeAttribute.toSequelizeType !== undefined;
   }
 
   transformTsTypes() {
@@ -81,10 +82,17 @@ export class GeneralTypes {
     return this.typeAttribute.toFieldScalar;
   }
 
-  transformGraphqlType() {
-    if (!this.hasGraphqlType) {
-      throw new Error(`Type ${this.type} associated graphql type is not supported`);
+  transformSequelizeType() {
+    if (!this.hasSequelizeType) {
+      throw new Error(`Type ${this.type} associated sequelize type is not supported`);
     }
-    return this.typeAttribute.toGraphqlType;
+    return this.typeAttribute.toSequelizeType;
+  }
+
+  transformStoreOperation(data: any) {
+    if (this.typeAttribute.toStoreOperation === undefined) {
+      return Buffer.from(JSON.stringify(data));
+    }
+    return this.typeAttribute.toStoreOperation(data);
   }
 }

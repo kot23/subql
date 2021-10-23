@@ -7,5 +7,5 @@ import {TypeInterfaces} from './typeInterfaces';
 export const Bytes = {
   toFieldScalar: 'Bytes',
   toTsType: 'string',
-  toGraphqlType: DataTypes.BLOB,
+  toSequelizeType: DataTypes.BLOB,
 } as TypeInterfaces;

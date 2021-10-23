@@ -6,5 +6,8 @@ import {TypeInterfaces} from './typeInterfaces';
 export const BigInt = {
   toFieldScalar: 'BigInt',
   toTsType: 'bigint',
-  toGraphqlType: 'numeric',
+  toSequelizeType: 'numeric',
+  toStoreOperation(data: any): Uint8Array | undefined {
+    return Buffer.from(data.toString());
+  },
 } as TypeInterfaces;

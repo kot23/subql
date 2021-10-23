@@ -9,10 +9,9 @@ import {
   loadProjectManifest,
   getAllJsonObjects,
   setJsonObjectType,
-  generalTypes,
+  GeneralTypes,
 } from '@subql/common';
 import {GraphQLEntityField, GraphQLJsonFieldType, GraphQLEntityIndex} from '@subql/common/graphql/types';
-import {GenericTypes} from '@subql/common/types/supported/typeInterfaces';
 import ejs from 'ejs';
 import {upperFirst} from 'lodash';
 import rimraf from 'rimraf';
@@ -109,8 +108,7 @@ export function processFields(
 
     switch (field.type) {
       default: {
-        const dataType = new generalTypes(field.type);
-        injectField.type = dataType.transformTsTypes();
+        injectField.type = new GeneralTypes(field.type).transformTsTypes();
         // injectField.type = transformTypes(className, field.type.toString());
         if (!injectField.type) {
           throw new Error(

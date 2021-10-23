@@ -6,5 +6,8 @@ import {TypeInterfaces} from './typeInterfaces';
 export const ID = {
   toFieldScalar: 'ID',
   toTsType: 'string',
-  toGraphqlType: 'text',
+  toSequelizeType: 'text',
+  toStoreOperation(data: any): Uint8Array | undefined {
+    return Buffer.from(data.toString());
+  },
 } as TypeInterfaces;

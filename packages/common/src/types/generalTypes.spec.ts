@@ -1,7 +1,7 @@
 // Copyright 2020-2021 OnFinality Limited authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import {GeneralTypes, GenericTypes} from '@subql/common';
+import {GeneralTypes} from '@subql/common';
 
 describe('general types', () => {
   it('can transform field into correct type', () => {
@@ -15,6 +15,8 @@ describe('general types', () => {
     expect(stringType.transformTsTypes()).toBe('string');
     const dateType = new GeneralTypes('Date');
     expect(dateType.transformTsTypes()).toBe('Date');
+    expect(dateType.transformFieldScalar()).toBe('Date');
+    expect(dateType.transformSequelizeType()).toBe('timestamp');
   });
 
   it('throw error when a type is not supported', () => {
@@ -25,6 +27,6 @@ describe('general types', () => {
     const jsonType = new GeneralTypes('Json');
     expect(jsonType.hasFieldScalar()).toBeFalsy();
     expect(jsonType.hasTsTypes()).toBeFalsy();
-    expect(jsonType.hasGraphqlType()).toBeTruthy();
+    expect(jsonType.hasSequelizeType()).toBeTruthy();
   });
 });

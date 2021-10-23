@@ -10,22 +10,10 @@ import {
   isBuffer,
   isNull,
 } from '@polkadot/util';
+import { GeneralTypes } from '@subql/common';
 import { GraphQLModelsType } from '@subql/common/graphql/types';
 import { ModelAttributes, DataTypes } from 'sequelize';
 import { ModelAttributeColumnOptions } from 'sequelize/types/lib/model';
-
-const SEQUELIZE_TYPE_MAPPING = {
-  ID: 'text',
-  Int: 'integer',
-  BigInt: 'numeric',
-  String: 'text',
-  Date: 'timestamp',
-  BigDecimal: 'numeric',
-  Boolean: 'boolean',
-  Bytes: DataTypes.BLOB,
-  Float: DataTypes.FLOAT,
-  Json: DataTypes.JSONB,
-};
 
 export function modelsTypeToModelAttributes(
   modelType: GraphQLModelsType,
@@ -38,8 +26,8 @@ export function modelsTypeToModelAttributes(
     }
     const columnOption: ModelAttributeColumnOptions<any> = {
       type: field.isArray
-        ? SEQUELIZE_TYPE_MAPPING.Json
-        : SEQUELIZE_TYPE_MAPPING[field.type],
+        ? new GeneralTypes('Json').transformSequelizeType()
+        : new GeneralTypes(field.type).transformSequelizeType(),
       allowNull,
       primaryKey: field.type === 'ID',
     };
@@ -81,8 +69,4 @@ export function modelsTypeToModelAttributes(
     acc[field.name] = columnOption;
     return acc;
   }, {} as ModelAttributes<any>);
-}
-
-export function isBasicType(t: string): boolean {
-  return Object.keys(SEQUELIZE_TYPE_MAPPING).findIndex((k) => k === t) >= 0;
 }
