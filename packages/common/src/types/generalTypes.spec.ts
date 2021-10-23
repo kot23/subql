@@ -1,9 +1,15 @@
 // Copyright 2020-2021 OnFinality Limited authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import {GeneralTypes} from '@subql/common';
+import {GeneralTypes, isGeneralTypes} from '@subql/common';
 
 describe('general types', () => {
+  it('check the type is general type', () => {
+    expect(isGeneralTypes('BigDecimal')).toBeFalsy();
+    expect(isGeneralTypes('Date')).toBeTruthy();
+    expect(isGeneralTypes('MyEntity')).toBeFalsy();
+  });
+
   it('can transform field into correct type', () => {
     const idType = new GeneralTypes('ID');
     expect(idType.transformTsTypes()).toBe('string');
@@ -23,7 +29,7 @@ describe('general types', () => {
     expect(() => new GeneralTypes('BigDecimal')).toThrow(/is not supported type/);
   });
 
-  it('identify if it is not a related type', () => {
+  it('identify the transform type are supported', () => {
     const jsonType = new GeneralTypes('Json');
     expect(jsonType.hasFieldScalar()).toBeFalsy();
     expect(jsonType.hasTsTypes()).toBeFalsy();

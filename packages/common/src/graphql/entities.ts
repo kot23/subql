@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import assert from 'assert';
-import {GeneralTypes} from '@subql/common';
+import {GeneralTypes, isGeneralTypes} from '@subql/common';
 import {
   assertListType,
   getDirectiveValues,
@@ -40,6 +40,7 @@ export function getAllJsonObjects(_schema: GraphQLSchema | string) {
     .filter(isObjectType);
 }
 
+// eslint-disable-next-line complexity
 export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQLModelsRelations {
   const schema = typeof _schema === 'string' ? buildSchema(_schema) : _schema;
   const entities = Object.values(schema.getTypeMap())
@@ -66,7 +67,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       const derivedFromDirectValues = getDirectiveValues(derivedFrom, field.astNode);
       const indexDirectiveVal = getDirectiveValues(indexDirective, field.astNode);
       //If is a basic scalar type
-      if (new GeneralTypes(typeString).hasFieldScalar()) {
+      if (isGeneralTypes(typeString) && new GeneralTypes(typeString).hasFieldScalar()) {
         newModel.fields.push(packEntityField(typeString, field, false));
       }
       // If is a foreign key
@@ -111,7 +112,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       }
       // handle indexes
       if (indexDirectiveVal) {
-        if (typeString !== 'ID' && new GeneralTypes(typeString).hasFieldScalar()) {
+        if (typeString !== 'ID' && isGeneralTypes(typeString) && new GeneralTypes(typeString).hasFieldScalar()) {
           newModel.indexes.push({
             unique: indexDirectiveVal.unique,
             fields: [field.name],

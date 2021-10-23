@@ -2,57 +2,24 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as supportedTypes from './supported';
-import {GenericTypes} from './supported/typeInterfaces';
+import {GenericTypes, TypeInterfaces} from './supported/typeInterfaces';
+
+export function isGeneralTypes(type: string): boolean {
+  return Object.keys(supportedTypes).findIndex((k) => k === type) > -1;
+}
 
 export class GeneralTypes {
   readonly type: GenericTypes;
-  readonly typeAttribute;
+  readonly typeAttribute: TypeInterfaces;
 
-  constructor(type: any) {
-    // const key = Object.keys(supportedTypes).findIndex((k)=>k === this.type)
-    // this.typeAttribute = supportedTypes.ID;
-    // TODO, fix this implementation
-    this.type = type as GenericTypes;
-    switch (this.type) {
-      default: {
-        throw new Error(`${this.type} is not supported type`);
-      }
-      case 'ID': {
-        this.typeAttribute = supportedTypes.ID;
-        break;
-      }
-      case 'Float': {
-        this.typeAttribute = supportedTypes.Float;
-        break;
-      }
-      case 'BigInt': {
-        this.typeAttribute = supportedTypes.BigInt;
-        break;
-      }
-      case 'Bytes': {
-        this.typeAttribute = supportedTypes.Bytes;
-        break;
-      }
-      case 'Boolean': {
-        this.typeAttribute = supportedTypes.Boolean;
-        break;
-      }
-      case 'Json': {
-        this.typeAttribute = supportedTypes.Json;
-        break;
-      }
-      case 'Date': {
-        this.typeAttribute = supportedTypes.Date;
-        break;
-      }
-      case 'Int': {
-        this.typeAttribute = supportedTypes.Int;
-        break;
-      }
-      case 'String': {
-        this.typeAttribute = supportedTypes.String;
-        break;
-      }
+  constructor(type: string) {
+    if (!isGeneralTypes(type)) {
+      throw new Error(`${type} is not supported type`);
+    } else {
+      [this.type, this.typeAttribute] = Object.entries(supportedTypes).find((value) => {
+        const [typeString] = value;
+        return typeString === type;
+      }) as [GenericTypes, TypeInterfaces];
     }
   }
 
