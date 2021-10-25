@@ -7,7 +7,7 @@ export const BigInt = {
   toFieldScalar: 'BigInt',
   toTsType: 'bigint',
   toSequelizeType: 'numeric',
-  toStoreOperation(data: any): Uint8Array | undefined {
+  toHashCode(data: any): Uint8Array | undefined {
     return Buffer.from(data.toString());
   },
 } as TypeInterfaces;

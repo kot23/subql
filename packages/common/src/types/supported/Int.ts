@@ -8,7 +8,7 @@ export const Int = {
   toFieldScalar: 'Int',
   toTsType: 'number',
   toSequelizeType: 'integer',
-  toStoreOperation(data: any): Uint8Array | undefined {
+  toHashCode(data: any): Uint8Array | undefined {
     return numberToU8a(data.toString());
   },
 } as TypeInterfaces;

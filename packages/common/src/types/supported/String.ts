@@ -7,7 +7,7 @@ export const String = {
   toFieldScalar: 'String',
   toTsType: 'string',
   toSequelizeType: 'text',
-  toStoreOperation(data: any): Uint8Array | undefined {
+  toHashCode(data: any): Uint8Array | undefined {
     return Buffer.from(data.toString());
   },
 } as TypeInterfaces;

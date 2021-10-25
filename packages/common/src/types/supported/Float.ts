@@ -9,7 +9,7 @@ export const Float = {
   toFieldScalar: 'Float',
   toTsType: 'number',
   toSequelizeType: DataTypes.FLOAT,
-  toStoreOperation(data: any): Uint8Array | undefined {
+  toHashCode(data: any): Uint8Array | undefined {
     return Buffer.from(data.toString()); //TODO, check if this is proper way to handle float
   },
 } as TypeInterfaces;

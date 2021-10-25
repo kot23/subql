@@ -57,9 +57,9 @@ export class GeneralTypes {
   }
 
   transformStoreOperation(data: any) {
-    if (this.typeAttribute.toStoreOperation === undefined) {
+    if (this.typeAttribute.toHashCode === undefined) {
       return Buffer.from(JSON.stringify(data));
     }
-    return this.typeAttribute.toStoreOperation(data);
+    return this.typeAttribute.toHashCode(data);
   }
 }

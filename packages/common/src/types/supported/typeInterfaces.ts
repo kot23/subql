@@ -20,8 +20,8 @@ type SequelizeTypes =
 export type GenericTypes = 'BigInt' | 'Boolean' | 'Bytes' | 'Date' | 'Float' | 'ID' | 'Int' | 'Json' | 'String';
 
 export interface TypeInterfaces {
-  toTsType: TypeScalar | undefined;
-  toFieldScalar: FieldScalar | undefined;
+  toTsType: TypeScalar | unknown;
+  toFieldScalar: FieldScalar | unknown;
   toSequelizeType: SequelizeTypes | undefined;
-  toStoreOperation(data: any): Uint8Array | undefined;
+  toHashCode(data: any): Uint8Array | undefined;
 }
