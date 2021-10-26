@@ -3,7 +3,7 @@
 
 import path from 'path';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { LocalReaderProjectManifestVersioned } from '@subql/common';
+import { LocalReader, ProjectManifestVersioned } from '@subql/common';
 import { SubqlDatasourceKind, SubqlHandlerKind } from '@subql/types';
 import { Sequelize } from 'sequelize';
 import { NodeConfig } from '../configure/NodeConfig';

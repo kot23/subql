@@ -33,7 +33,6 @@ const projectSpecV0_2_0: ProjectSpecV0_2_0 = {
   description: 'this is test for init controller',
   version: '',
   license: '',
-  endpoint: '',
 };
 
 const ipfsEndpoint = 'https://ipfs.thechainhub.com/api/v0';

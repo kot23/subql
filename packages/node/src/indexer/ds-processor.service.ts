@@ -17,6 +17,7 @@ import { Sandbox } from './sandbox.service';
 export interface DsPluginSandboxOption {
   root: string;
   entry: string;
+  script: string;
 }
 
 const logger = getLogger('ds-sandbox');
@@ -79,8 +80,9 @@ export class DsProcessorService {
     }
     if (!this.processorCache[ds.processor.file]) {
       const sandbox = new DsPluginSandbox({
-        root: this.project.path,
+        root: this.project.root,
         entry: ds.processor.file,
+        script: null /* TODO get working with Readers, same as with sandbox */,
       });
       try {
         this.processorCache[ds.processor.file] = sandbox.getDsPlugin<D, T>();

@@ -11,12 +11,11 @@ import {
   ReaderFactory,
   parseProjectManifest,
   Reader,
-  SubqlRuntimeDatasource,
   isRuntimeDataSourceV0_2_0,
   GithubReader,
   ReaderOptions,
 } from '@subql/common';
-import { SubqlDatasource } from '@subql/types';
+import { SubqlDatasource, SubqlRuntimeDatasource } from '@subql/types';
 import yaml from 'js-yaml';
 import { pick } from 'lodash';
 import { getLogger } from '../utils/logger';
