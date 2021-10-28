@@ -1,15 +1,26 @@
 # Changelog
+All notable changes to this project will be documented in this file.
 
-- All notable changes to this project will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-- The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-  and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+All logs must start with the format: [x.y.z] - yyyy-mm-dd
 
 ## [Unreleased]
+
+## [0.23.1] - 2021-10-27
+### Fixed
+- Disable the profiler on health check and remove logs (#569) 
+
+## [0.23.0] - 2021-10-26
 ### Added
 - Add MMR service allow to acquire Proof of index information and generate Merkle mountain range root, create and store root value in a file-based database, simultaneously it updates in the corresponding MMR value in the `_poi` table.
-This feature will be running along with the Proof of index service, also allow the user to specify a local path for .mmr by using flag `--mmr-path`.
-- Support Float type in Sequelize type mapping
+This feature will be running along with the Proof of index service, also allow the user to specify a local path for .mmr by using flag `--mmr-path`. (#488)
+- Introduce custom datasource (beta), enable subql to support a vary kind of smart contract solutions that embedded in parachains (#512)
+### Changed
+- Update Polkadot/api to 6.5.2 (#564)
+### Fixed
+- Performance improvement (#565)
 
 ## [0.22.0] - 2021-10-12
 Upgrade priority: High. To align with runtime upgrade of Kusama and Polakdot, upgraded api will support Metadata V14 and .
@@ -299,7 +310,7 @@ Upgrade priority: High.
 ### Added
 - support callHandler and eventHandler (#47)
 
-## 0.2.0 - 2020-12-22
+## [0.2.0] - 2020-12-22
 ### Added
 - support block handler
 - put subquery tables in their own db schema
