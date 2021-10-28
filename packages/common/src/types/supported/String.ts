@@ -4,10 +4,10 @@
 import {TypeInterfaces} from './typeInterfaces';
 
 export const String = {
-  toFieldScalar: 'String',
-  toTsType: 'string',
-  toSequelizeType: 'text',
-  toHashCode(data: any): Uint8Array | undefined {
+  fieldScalar: 'String',
+  tsType: 'string',
+  sequelizeType: 'text',
+  hashCode(data: any): Uint8Array | undefined {
     return Buffer.from(data.toString());
   },
 } as TypeInterfaces;

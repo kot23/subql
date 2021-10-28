@@ -3,11 +3,11 @@
 
 import {DataTypes} from 'sequelize';
 // Typescript type, used in Codegen template interface
-type TypeScalar = 'string' | 'number' | 'bigint' | 'Date' | 'boolean';
+export type TypeScalar = 'string' | 'number' | 'bigint' | 'Date' | 'boolean';
 // used in Common/graphql/types Entity types
-type FieldScalar = 'ID' | 'Int' | 'BigInt' | 'String' | 'Date' | 'Boolean' | 'Bytes' | 'Float';
+export type FieldScalar = 'ID' | 'Int' | 'BigInt' | 'String' | 'Date' | 'Boolean' | 'Bytes' | 'Float';
 // Sequelize type
-type SequelizeTypes =
+export type SequelizeTypes =
   | 'text'
   | 'integer'
   | 'numeric'
@@ -20,8 +20,15 @@ type SequelizeTypes =
 export type GenericTypes = 'BigInt' | 'Boolean' | 'Bytes' | 'Date' | 'Float' | 'ID' | 'Int' | 'Json' | 'String';
 
 export interface TypeInterfaces {
-  toTsType: TypeScalar | unknown;
-  toFieldScalar: FieldScalar | unknown;
-  toSequelizeType: SequelizeTypes | undefined;
+  tsType: TypeScalar | undefined;
+  fieldScalar: FieldScalar | undefined;
+  sequelizeType: SequelizeTypes | undefined;
+  hashCode(data: any): Uint8Array | undefined;
+  hasTsTypes(): boolean;
+  hasFieldScalar(): boolean;
+  hasSequelizeType(): boolean;
+  toTsTypes(): TypeScalar | undefined;
+  toFieldScalar(): FieldScalar | undefined;
+  toSequelizeType(): SequelizeTypes | undefined;
   toHashCode(data: any): Uint8Array | undefined;
 }

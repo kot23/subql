@@ -6,10 +6,10 @@ import {DataTypes} from 'sequelize';
 import {TypeInterfaces} from './typeInterfaces';
 
 export const Float = {
-  toFieldScalar: 'Float',
-  toTsType: 'number',
-  toSequelizeType: DataTypes.FLOAT,
-  toHashCode(data: any): Uint8Array | undefined {
+  fieldScalar: 'Float',
+  tsType: 'number',
+  sequelizeType: DataTypes.FLOAT,
+  hashCode(data: any): Uint8Array | undefined {
     return Buffer.from(data.toString()); //TODO, check if this is proper way to handle float
   },
 } as TypeInterfaces;

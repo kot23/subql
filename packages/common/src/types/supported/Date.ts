@@ -5,10 +5,10 @@ import {numberToU8a} from '@polkadot/util';
 import {TypeInterfaces} from './typeInterfaces';
 
 export const Date = {
-  toFieldScalar: 'Date',
-  toTsType: 'Date',
-  toSequelizeType: 'timestamp',
-  toHashCode(data: any): Uint8Array | undefined {
+  fieldScalar: 'Date',
+  tsType: 'Date',
+  sequelizeType: 'timestamp',
+  hashCode(data: any): Uint8Array | undefined {
     return Buffer.from(numberToU8a(data.getTime()));
   },
 } as TypeInterfaces;

@@ -5,8 +5,9 @@ import {DataTypes} from 'sequelize';
 import {TypeInterfaces} from './typeInterfaces';
 
 export const Json = {
-  toSequelizeType: DataTypes.JSONB,
-  toHashCode(data: any): Uint8Array | undefined {
+  //TODO: toTsType:
+  sequelizeType: DataTypes.JSONB,
+  hashCode(data: any): Uint8Array | undefined {
     return Buffer.from(JSON.stringify(data));
   },
 } as TypeInterfaces;

@@ -4,10 +4,10 @@
 import {TypeInterfaces} from './typeInterfaces';
 
 export const BigInt = {
-  toFieldScalar: 'BigInt',
-  toTsType: 'bigint',
-  toSequelizeType: 'numeric',
-  toHashCode(data: any): Uint8Array | undefined {
+  fieldScalar: 'BigInt',
+  tsType: 'bigint',
+  sequelizeType: 'numeric',
+  hashCode(data: any): Uint8Array | undefined {
     return Buffer.from(data.toString());
   },
 } as TypeInterfaces;

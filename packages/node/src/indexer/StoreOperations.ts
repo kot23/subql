@@ -1,8 +1,8 @@
 // Copyright 2020-2021 OnFinality Limited authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { u8aConcat, numberToU8a, u8aToBuffer, isString } from '@polkadot/util';
-import { GeneralTypes } from '@subql/common';
+import { u8aConcat, u8aToBuffer, isString } from '@polkadot/util';
+import { getTypeByScalarName } from '@subql/common';
 import { GraphQLModelsType } from '@subql/common/graphql/types';
 import { Entity } from '@subql/types';
 import MerkleTools from 'merkle-tools';
@@ -35,7 +35,7 @@ export class StoreOperations {
         dataBufferArray.push(Buffer.from(field.name));
         if (fieldValue !== undefined && fieldValue !== null) {
           dataBufferArray.push(
-            new GeneralTypes(field.type).transformStoreOperation(fieldValue),
+            getTypeByScalarName(field.type).toHashCode(fieldValue),
           );
         }
       }

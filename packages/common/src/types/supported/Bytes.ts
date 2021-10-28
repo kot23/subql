@@ -5,7 +5,7 @@ import {DataTypes} from 'sequelize';
 import {TypeInterfaces} from './typeInterfaces';
 
 export const Bytes = {
-  toFieldScalar: 'Bytes',
-  toTsType: 'string',
-  toSequelizeType: DataTypes.BLOB,
+  fieldScalar: 'Bytes',
+  tsType: 'string',
+  sequelizeType: DataTypes.BLOB,
 } as TypeInterfaces;

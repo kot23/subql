@@ -9,7 +9,7 @@ import {
   loadProjectManifest,
   getAllJsonObjects,
   setJsonObjectType,
-  GeneralTypes,
+  getTypeByScalarName,
 } from '@subql/common';
 import {GraphQLEntityField, GraphQLJsonFieldType, GraphQLEntityIndex} from '@subql/common/graphql/types';
 import ejs from 'ejs';
@@ -108,8 +108,7 @@ export function processFields(
 
     switch (field.type) {
       default: {
-        injectField.type = new GeneralTypes(field.type).transformTsTypes();
-        // injectField.type = transformTypes(className, field.type.toString());
+        injectField.type = getTypeByScalarName(field.type).toTsTypes();
         if (!injectField.type) {
           throw new Error(
             `Schema: undefined type "${field.type.toString()}" on field "${field.name}" in "type ${className} @${type}"`

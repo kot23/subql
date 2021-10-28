@@ -5,10 +5,10 @@ import {numberToU8a} from '@polkadot/util';
 import {TypeInterfaces} from './typeInterfaces';
 
 export const Int = {
-  toFieldScalar: 'Int',
-  toTsType: 'number',
-  toSequelizeType: 'integer',
-  toHashCode(data: any): Uint8Array | undefined {
+  fieldScalar: 'Int',
+  tsType: 'number',
+  sequelizeType: 'integer',
+  hashCode(data: any): Uint8Array | undefined {
     return numberToU8a(data.toString());
   },
 } as TypeInterfaces;

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import assert from 'assert';
-import {GeneralTypes, isGeneralTypes} from '@subql/common';
+import {getTypeByScalarName, isGeneralTypes} from '@subql/common';
 import {
   assertListType,
   getDirectiveValues,
@@ -67,7 +67,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       const derivedFromDirectValues = getDirectiveValues(derivedFrom, field.astNode);
       const indexDirectiveVal = getDirectiveValues(indexDirective, field.astNode);
       //If is a basic scalar type
-      if (isGeneralTypes(typeString) && new GeneralTypes(typeString).hasFieldScalar()) {
+      if (isGeneralTypes(typeString) && getTypeByScalarName(typeString).hasFieldScalar()) {
         newModel.fields.push(packEntityField(typeString, field, false));
       }
       // If is a foreign key
@@ -112,7 +112,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       }
       // handle indexes
       if (indexDirectiveVal) {
-        if (typeString !== 'ID' && isGeneralTypes(typeString) && new GeneralTypes(typeString).hasFieldScalar()) {
+        if (typeString !== 'ID' && isGeneralTypes(typeString) && getTypeByScalarName(typeString).hasFieldScalar()) {
           newModel.indexes.push({
             unique: indexDirectiveVal.unique,
             fields: [field.name],

@@ -10,9 +10,9 @@ import {
   isBuffer,
   isNull,
 } from '@polkadot/util';
-import { GeneralTypes } from '@subql/common';
+import { getTypeByScalarName } from '@subql/common';
 import { GraphQLModelsType } from '@subql/common/graphql/types';
-import { ModelAttributes, DataTypes } from 'sequelize';
+import { ModelAttributes } from 'sequelize';
 import { ModelAttributeColumnOptions } from 'sequelize/types/lib/model';
 
 export function modelsTypeToModelAttributes(
@@ -26,8 +26,8 @@ export function modelsTypeToModelAttributes(
     }
     const columnOption: ModelAttributeColumnOptions<any> = {
       type: field.isArray
-        ? new GeneralTypes('Json').transformSequelizeType()
-        : new GeneralTypes(field.type).transformSequelizeType(),
+        ? getTypeByScalarName('Json').toSequelizeType()
+        : getTypeByScalarName(field.type).toSequelizeType(),
       allowNull,
       primaryKey: field.type === 'ID',
     };

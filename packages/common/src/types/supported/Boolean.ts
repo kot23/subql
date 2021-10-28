@@ -5,10 +5,10 @@ import {numberToU8a} from '@polkadot/util/bundle';
 import {TypeInterfaces} from './typeInterfaces';
 
 export const Boolean = {
-  toFieldScalar: 'Boolean',
-  toTsType: 'boolean',
-  toSequelizeType: 'boolean',
-  toHashCode(data: any): Uint8Array | undefined {
+  fieldScalar: 'Boolean',
+  tsType: 'boolean',
+  sequelizeType: 'boolean',
+  hashCode(data: any): Uint8Array | undefined {
     return Buffer.from(numberToU8a(data ? 1 : 0));
   },
 } as TypeInterfaces;
