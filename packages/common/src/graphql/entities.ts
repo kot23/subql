@@ -113,7 +113,7 @@ export function getAllEntitiesRelations(_schema: GraphQLSchema | string): GraphQ
       if (indexDirectiveVal) {
         if (typeString !== 'ID' && isFieldScalar(typeString)) {
           newModel.indexes.push({
-            unique: indexDirectiveVal.unique,
+            unique: indexDirectiveVal.unique === true,
             fields: [field.name],
           });
         } else if (typeString !== 'ID' && entityNameSet.includes(typeString)) {
